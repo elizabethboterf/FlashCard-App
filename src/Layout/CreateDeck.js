@@ -14,16 +14,23 @@ function CreateDeck() {
         [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-         function Create (){
+         async function createNewDeck (){
              const abort= new AbortController();
-             createDeck(deck, abort.signal).then(setDeck);
+             const newDeck= await createDeck(deck, abort.signal);
+             console.log(newDeck);
+             const id=newDeck.id;
+             setDeck({
+                 ...deck,
+                 id: id});
              return ()=> abort.abort();
          } 
+         //const newDeck= await createDeck(deck);
+         //setDeck(newDeck);
         //console.log(newDeck);
-        //setDeck(newDeck);
-        Create();
+        //setDeck(newDeck);git push origin main
+         await createNewDeck();
         console.log(deck);
         history.push(`/decks/${deck.id}`); // send user to home page after create deck 
     };

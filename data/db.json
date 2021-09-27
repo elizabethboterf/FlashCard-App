@@ -27,6 +27,41 @@
       "name": "have ",
       "description": "fun",
       "id": 6
+    },
+    {
+      "name": "double",
+      "description": "check",
+      "id": 7
+    },
+    {
+      "name": "boo",
+      "description": "hoo",
+      "id": 8
+    },
+    {
+      "name": "so many",
+      "description": "times",
+      "id": 9
+    },
+    {
+      "name": "so ",
+      "description": "close",
+      "id": 10
+    },
+    {
+      "name": "oopsy",
+      "description": "poopsy",
+      "id": 11
+    },
+    {
+      "name": "it never ",
+      "description": "ends",
+      "id": 12
+    },
+    {
+      "name": "once",
+      "description": "more",
+      "id": 13
     }
   ],
   "cards": [
