@@ -7,10 +7,16 @@ import NavBar from "../Common/NavBar";
 import {readDeck, listCards} from "../utils/api";
 
 function Study(){
+    const initialDisplay={
+        front: true,
+        current: 1
+    };
+
     const {deckId} =useParams();
     const [deck, setDeck]= useState({});
     const [cards, setCards] = useState([]);
-    const [isfront, setIsfront]= useState(true);
+    const [displayCard, setDisplayCard]= useState(initialDisplay);
+
     const [error, setError] = useState({});
 
     useEffect(()=>{
@@ -29,12 +35,20 @@ function Study(){
     }, []);
     console.log(cards);
     const length =cards.length-1;
+    
 
     return (
         <div>
             <NavBar />
             <h1>{deck.name}: Study</h1>
-            {length<3 ? (<NotEnoughCards deck={deck} cards={cards} />):(<FlashCard cards={cards} deckId={deckId} isfront={isfront} setIsfront={setIsfront}/>)}
+            {length<2 ? 
+            (<NotEnoughCards deck={deck} cards={cards} />)
+            :
+            (<FlashCard 
+            cards={cards}
+            displayCard={displayCard} 
+            setDisplayCard={setDisplayCard}  
+            initialDisplay={initialDisplay} />)}
         </div>
     );
 }

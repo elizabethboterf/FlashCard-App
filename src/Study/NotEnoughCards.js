@@ -5,7 +5,7 @@ function NotEnoughCards ({cards, deck}){
     return (
         <div>
             <h2>Not enough cards</h2>
-            <p>You need atleast 3 cards to study. There are {cards.length-1} cards in this deck.</p>
+            <p>You need atleast 3 cards to study. There are {cards.length} cards in this deck.</p>
             <Link to={`/decks/${deck.id}/cards/new`}>Add Cards</Link>
              
         </div>

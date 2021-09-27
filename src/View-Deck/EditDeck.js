@@ -5,18 +5,22 @@ import DeckForm from "../Common/DeckForm";
 import { updateDeck, readDeck} from "../utils/api";
 
 function EditDeck (){
-    const history=useHistory();
     const {deckId}=useParams();
-
+    console.log(deckId);
+    const history=useHistory();
     const [deck, setDeck]= useState();
     const [error, setError] = useState();
-
+    
     useEffect(()=>{
         const abort = new AbortController();
         readDeck(deckId, abort.signal).then(setDeck).catch(setError);
 
-        return()=> abort.abort();
+        console.log(error);
+
+        return ()=> abort.abort();
+        
     }, []);
+    console.log(deck);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -31,7 +35,6 @@ function EditDeck (){
             updateDeck(deck);
             
             history.goBack();
-        
     };
 
     const handleCancel=()=>{
@@ -47,9 +50,7 @@ function EditDeck (){
             <NavBar />
             <h1>Edit Deck</h1>
             <div className="container">
-                <DeckForm deck={deck}
-                deckName={deck.name}
-                deckDescription={deck.description} 
+                <DeckForm deck={deck} 
                 handleChange={handleChange} handleSubmit={handleSubmit} handleCancel={handleCancel} /> 
             </div>
         </main>

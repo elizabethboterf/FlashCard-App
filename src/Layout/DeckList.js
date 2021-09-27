@@ -18,7 +18,7 @@ function DeckList(){
         .catch(setError);
 
         return ()=> abort.abort;
-    }, [decks]);
+    }, []);
 
     //if(error) return (<ErrorMessage error={error} />);
 

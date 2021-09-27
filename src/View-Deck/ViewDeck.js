@@ -19,6 +19,7 @@ function ViewDeck (){
 
         return ()=> abort.abort();
     }, [deckId]);
+    console.log(deck);
 
     //if(error) return(<ErrorMessage error={error} />);
 
