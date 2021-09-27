@@ -6,6 +6,7 @@ import DeckForm from "../Common/DeckForm";
 
 function CreateDeck() {
     const [deck, setDeck] = useState({});
+    const [error, setError]= useState();
     const history = useHistory();
 
     const handleChange = (event) => {
@@ -14,7 +15,7 @@ function CreateDeck() {
         [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit =(event) => {
         event.preventDefault();
          async function createNewDeck (){
              const abort= new AbortController();
@@ -24,15 +25,17 @@ function CreateDeck() {
              setDeck({
                  ...deck,
                  id: id});
+
              return ()=> abort.abort();
          } 
          //const newDeck= await createDeck(deck);
          //setDeck(newDeck);
         //console.log(newDeck);
-        //setDeck(newDeck);git push origin main
-         await createNewDeck();
+        //setDeck(newDeck)
+        createNewDeck().then(console.log(deck)).then(history.push(`/decks/${deck.id}`)).catch(setError);
+        console.log(error);
         console.log(deck);
-        history.push(`/decks/${deck.id}`); // send user to home page after create deck 
+        //history.push(`/decks/${deck.id}`); // send user to home page after create deck 
     };
 
     const handleCancel = () =>{
