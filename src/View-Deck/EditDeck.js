@@ -8,8 +8,8 @@ function EditDeck (){
     const {deckId}=useParams();
     console.log(deckId);
     const history=useHistory();
-    const [deck, setDeck]= useState();
-    const [error, setError] = useState();
+    const [deck, setDeck]= useState({});
+    const [error, setError] = useState({});
     
     useEffect(()=>{
         const abort = new AbortController();

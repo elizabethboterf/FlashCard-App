@@ -2,21 +2,33 @@ import React, {useState, useEffect} from "react";
 import {useHistory, useParams} from "react-router-dom";
 import NavBar from "../Common/NavBar";
 import CardForm from "../Common/CardForm";
-import { updateCard, readCard} from "../utils/api";
+import { updateCard, readCard, readDeck} from "../utils/api";
 
 function EditCard (){
     const history=useHistory();
     const {deckId, cardId}=useParams();
 
-    const [card, setCard]= useState();
-    const [error, setError] = useState();
+    const [card, setCard]= useState({});
+    const [deck, setDeck]= useState({});
+    const [error, setError] = useState({});
 
-    useEffect(async()=>{
+    useEffect(()=>{
         const abort = new AbortController();
-        await readCard(cardId, abort.signal).then(setCard).catch(setError);
+        readDeck(deckId, abort.signal).then(setDeck).catch(setError);
 
         return()=> abort.abort();
-    }, [])
+    }, []);
+    useEffect(()=>{
+        const abort = new AbortController();
+        try{
+            readCard(cardId, abort.signal).then(setCard)
+            return ()=> abort.abort();
+        }catch(error){
+            console.log(error);
+        }
+    }, [cardId]);
+
+    console.log(card);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -41,7 +53,7 @@ function EditCard (){
     /*if (error){
         return <ErrorMessage error={error} />;  
     }*/
-    console.log(card);
+    
     
     return (
         <main>

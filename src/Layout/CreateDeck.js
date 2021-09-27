@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { createDeck, readDeck } from "../utils/api";
-//import NavBar from "./Common/NavBar";
+import NavBar from "../Common/NavBar";
 import DeckForm from "../Common/DeckForm";
 
 function CreateDeck() {
-/* Create Deck Page */
     const [deck, setDeck] = useState({});
     const history = useHistory();
 
@@ -15,12 +14,19 @@ function CreateDeck() {
         [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
-        await createDeck(deck).then(setDeck).then(history.push(`/`)); // send user to home page after create deck 
+         function Create (){
+             const abort= new AbortController();
+             createDeck(deck, abort.signal).then(setDeck);
+             return ()=> abort.abort();
+         } 
+        //console.log(newDeck);
+        //setDeck(newDeck);
+        Create();
+        console.log(deck);
+        history.push(`/decks/${deck.id}`); // send user to home page after create deck 
     };
-
-    //const breadCrumbLinks = [{ dir: "/decks/new", label: "Create Deck" }];
 
     const handleCancel = () =>{
         history.push("/")
@@ -28,15 +34,13 @@ function CreateDeck() {
 
     return (
         <div className="container">
-       
-
-        <h1>Create Deck</h1>
-
-        <DeckForm
-        deck={{name:"Deck Name", description:"Deck Description"}}
-        handleCancel={handleCancel}
-        handleSubmit={handleSubmit}
-        handleChange={handleChange}
+            <NavBar />
+            <h1>Create Deck</h1>
+            <DeckForm
+            deck={{name:"Deck Name", description:"Deck Description"}}
+            handleCancel={handleCancel}
+            handleSubmit={handleSubmit}
+            handleChange={handleChange}
         />
         </div>
     );
