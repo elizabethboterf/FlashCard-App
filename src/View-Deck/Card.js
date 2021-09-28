@@ -6,20 +6,6 @@ const Card = ({card}) =>{
     const {url}= useRouteMatch();
     const history=useHistory();
 
-    /*const [card, setCard] = useState({});
-    const [error, setError] = useState(undefined);
-
-    useEffect(()=>{
-        const abort = new AbortController();
-
-        readCard(item.id, abort.signal).then(setCard).catch(setError);
-
-        return()=> abort.abort();
-    }, []);*/
-
-    /*if (error){
-        return <ErrorMessage error={error} />;  
-    }*/
     const handleDelete=()=>{
         if(window.confirm("Are you sre you want to delete this card?")){
         deleteCard(card.id);
