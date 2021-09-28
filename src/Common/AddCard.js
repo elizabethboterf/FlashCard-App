@@ -2,22 +2,22 @@ import React, {useEffect, useState} from "react";
 import {useHistory, useParams } from "react-router-dom";
 import NavBar from "./NavBar";
 import CardForm from "./CardForm";
+import ErrorMessage from "../Common/ErrorMessage";
 import { createCard, readDeck } from "../utils/api";
 
 function AddCard () {
     const history=useHistory();
     const {deckId} = useParams();
-
+    const [deck, setDeck]= useState({});
     const [card, setCard]= useState({});
-    const [deck, setDeck]=useState({});
-    const [error, setError] = useState(undefined);
-    
-    useEffect(()=>{
-            const abort = new AbortController();
-            readDeck(deckId, abort.signal).then(setDeck).catch(setError);
+    const [error, setError]= useState();
 
-            return()=> abort.abort();
-        }, [deckId]);
+    useEffect(()=>{
+        const abort = new AbortController();
+        readDeck(deckId, abort.signal).then(setDeck).catch(setError);
+
+        return ()=> abort.abort();
+    }, [deckId]);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -38,13 +38,21 @@ function AddCard () {
         history.push(`/decks/${deckId}`);
     };
 
-    /*if (error){
+    if (error){
         return <ErrorMessage error={error} />;  
-    }*/
+    }
+    const navLinks= [
+        {dir: `/`,
+        label: "Home"},
+        {dir: `/decks/${deckId}`,
+        label: `${deck.name}`},
+        {dir: `decks/${deckId}/cards/new`,
+        label: "Add Card"}
+    ]
     
     return (
         <main>
-            <NavBar />
+            <NavBar links={navLinks} />
             <h1>Add Card</h1>
             <div className="container">
                 <CardForm  

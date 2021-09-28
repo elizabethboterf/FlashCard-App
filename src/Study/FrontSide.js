@@ -1,5 +1,4 @@
 import React from "react";
-import FlashCard from "./FlashCard";
 import BackSide from "./BackSide"
 
 function FrontSide ({cards, card, restart, displayCard, setDisplayCard}){
@@ -12,7 +11,6 @@ function FrontSide ({cards, card, restart, displayCard, setDisplayCard}){
             front: false
         });
     }
-    console.log(card);
     
     return (
         <div>

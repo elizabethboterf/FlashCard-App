@@ -1,26 +1,23 @@
 import React, {useState, useEffect} from "react";
 import {useHistory, useParams} from "react-router-dom";
+import ErrorMessage from "../Common/ErrorMessage";
 import NavBar from "../Common/NavBar";
 import DeckForm from "../Common/DeckForm";
 import { updateDeck, readDeck} from "../utils/api";
 
 function EditDeck (){
     const {deckId}=useParams();
-    console.log(deckId);
     const history=useHistory();
     const [deck, setDeck]= useState({});
-    const [error, setError] = useState({});
+    const [error, setError] = useState();
     
     useEffect(()=>{
         const abort = new AbortController();
         readDeck(deckId, abort.signal).then(setDeck).catch(setError);
 
-        console.log(error);
-
         return ()=> abort.abort();
         
-    }, []);
-    console.log(deck);
+    }, [deckId]);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -41,13 +38,22 @@ function EditDeck (){
         history.goBack();
     };
 
-    /*if (error){
+    if (error){
         return <ErrorMessage error={error} />;  
-    }*/
+    }
+
+    const navLinks= [
+        {dir: `/`,
+        label: "Home"},
+        {dir: `/decks/${deckId}`,
+        label: `${deck.name}`},
+        {dir: `decks/${deckId}/edit`,
+        label: "Edit Deck"}
+    ];
     
     return (
         <main>
-            <NavBar />
+            <NavBar links={navLinks} />
             <h1>Edit Deck</h1>
             <div className="container">
                 <DeckForm deck={deck} 

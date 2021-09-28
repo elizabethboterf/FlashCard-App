@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { createDeck, readDeck } from "../utils/api";
+import { createDeck } from "../utils/api";
+import ErrorMessage from "../Common/ErrorMessage";
 import NavBar from "../Common/NavBar";
 import DeckForm from "../Common/DeckForm";
 
@@ -18,33 +19,34 @@ function CreateDeck() {
     const handleSubmit =(event) => {
         event.preventDefault();
          async function createNewDeck (){
-             const abort= new AbortController();
-             const newDeck= await createDeck(deck, abort.signal);
+             const newDeck= await createDeck(deck);
              console.log(newDeck);
-             const id=newDeck.id;
-             setDeck({
-                 ...deck,
-                 id: id});
-
-             return ()=> abort.abort();
+             
+             return newDeck;
          } 
-         //const newDeck= await createDeck(deck);
-         //setDeck(newDeck);
-        //console.log(newDeck);
-        //setDeck(newDeck)
-        createNewDeck().then(console.log(deck)).then(history.push(`/decks/${deck.id}`)).catch(setError);
-        console.log(error);
-        console.log(deck);
-        //history.push(`/decks/${deck.id}`); // send user to home page after create deck 
+        createNewDeck().then(response=>history.push(`/decks/${response.id}`)).catch(setError);
+        
     };
 
     const handleCancel = () =>{
         history.push("/")
     }
 
+    if (error){
+        return <ErrorMessage error={error} />;  
+    }
+
+    const navLinks= [
+        {dir: `/`,
+        label: "Home"},
+        {dir: `/decks/new`,
+        label: `Create Deck`},
+        
+    ];
+
     return (
         <div className="container">
-            <NavBar />
+            <NavBar links={navLinks}/>
             <h1>Create Deck</h1>
             <DeckForm
             deck={{name:"Deck Name", description:"Deck Description"}}

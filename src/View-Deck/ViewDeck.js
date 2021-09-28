@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { deleteDeck, readDeck } from "../utils/api";
- 
-//import EditDeck from "./EditDeck";
-//import AddCard from "../Common/AddCard";
+ import ErrorMessage from "../Common/ErrorMessage";
 import CardList from "./CardsList";
-//import Card from "./Card";
+import NavBar from "../Common/NavBar";
 
 function ViewDeck (){
     const {deckId}=useParams();
     const history=useHistory();
-    const [deck, setDeck]= useState();
+    const [deck, setDeck]= useState({});
     const [error, setError] = useState();
 
     useEffect(()=>{
@@ -19,9 +17,6 @@ function ViewDeck (){
 
         return ()=> abort.abort();
     }, [deckId]);
-    console.log(deck);
-
-    //if(error) return(<ErrorMessage error={error} />);
 
     const handleDelete = ()=>{
         if(window.confirm("Are you sure you want to delete this deck?")){
@@ -29,10 +24,22 @@ function ViewDeck (){
             history.push("/");
         }
     };
-    console.log(deck);
+
+    if (error){
+        return <ErrorMessage error={error} />;  
+    }
+    
+    const navLinks= [
+        {dir: `/`,
+        label: "Home"},
+        {dir: `/decks/${deckId}`,
+        label: `${deck.name}`}
+    ];
+
     if(deck){
         return(
             <div>
+                <NavBar links={navLinks} />
                 <h1>{deck.name}</h1>
                 <p>{deck.description}</p>
                 <Link to={`/decks/${deck.id}/edit`} className="btn btn-primary" href="#">Edit</Link>

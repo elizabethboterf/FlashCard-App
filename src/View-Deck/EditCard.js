@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {useHistory, useParams} from "react-router-dom";
+import ErrorMessage from "../Common/ErrorMessage";
 import NavBar from "../Common/NavBar";
 import CardForm from "../Common/CardForm";
 import { updateCard, readCard, readDeck} from "../utils/api";
@@ -10,25 +11,19 @@ function EditCard (){
 
     const [card, setCard]= useState({});
     const [deck, setDeck]= useState({});
-    const [error, setError] = useState({});
+    const [error, setError] = useState();
 
     useEffect(()=>{
         const abort = new AbortController();
         readDeck(deckId, abort.signal).then(setDeck).catch(setError);
 
         return()=> abort.abort();
-    }, []);
+    }, [deckId]);
     useEffect(()=>{
         const abort = new AbortController();
-        try{
-            readCard(cardId, abort.signal).then(setCard)
-            return ()=> abort.abort();
-        }catch(error){
-            console.log(error);
-        }
+        readCard(cardId, abort.signal).then(setCard).catch(setError);
+        return ()=> abort.abort();
     }, [cardId]);
-
-    console.log(card);
 
     const handleChange = (event) => {
         const value = event.target.value;
@@ -47,17 +42,25 @@ function EditCard (){
     };
 
     const handleCancel=()=>{
-        history.go(0);
+        history.goBack();
     };
 
-    /*if (error){
+    if (error){
         return <ErrorMessage error={error} />;  
-    }*/
-    
+    }
+
+    const navLinks= [
+        {dir: `/`,
+        label: "Home"},
+        {dir: `/decks/${deckId}`,
+        label: `${deck.name}`},
+        {dir: `decks/${deckId}/cards/${cardId}/edit`,
+        label: `Edit Card ${card.id}`}
+    ];
     
     return (
         <main>
-            <NavBar />
+            <NavBar links={navLinks} />
             <h1>Edit Card</h1>
             <div className="container">
                 <CardForm 

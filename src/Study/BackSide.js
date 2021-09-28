@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {useHistory} from "react-router-dom";
 import FlashCard from "./FlashCard";
 
@@ -9,23 +9,6 @@ function BackSide({cards, card, restart, displayCard, setDisplayCard}){
     const {final, initial}= restart;
     let next=current;
     
-    if(current===final){ 
-         //setIsFinal(true);
-         //console.log(isFinal);  
-        setTimeout(()=>{
-                const result = window.confirm("Restart Cards? Click 'cancel' to return to the home page.");
-                if (result) {
-                    setDisplayCard(initial)
-                    return <FlashCard 
-                    cards={cards} 
-                    displayCard={displayCard} 
-                    setDisplayCard={setDisplayCard} 
-                    initialDisplay={initial}/>
-                    }else{
-                    history.push("/");
-                }
-        }, 3.0*1000);
-    }
     //console.log(isFinal);
 
     const handleFlip = (event)=>{
@@ -37,11 +20,21 @@ function BackSide({cards, card, restart, displayCard, setDisplayCard}){
     }
     const handleNext = (event)=>{
         event.preventDefault();
-        let next=current+1;
-        setDisplayCard({
-            front: true,
-            current: next
-        });
+        if(current===final){ 
+            const result = window.confirm("Restart Cards? Click 'cancel' to return to the home page.");
+            if (result) {
+                setDisplayCard(initial);
+            }else{
+                history.push("/");
+            }
+    
+        }else{
+            let next=current+1;
+            setDisplayCard({
+                front: true,
+                current: next
+            });
+        }
     }
     
     return (

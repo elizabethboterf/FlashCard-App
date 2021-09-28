@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from "react";
+import ErrorMessage from "../Common/ErrorMessage";
 import Card from "./Card";
 import {listCards} from "../utils/api";
 
 
 const CardList = ({deckId}) => {
     const [cards, setCards]= useState([]);
-    const [error, setError] = useState(undefined);
+    const [error, setError] = useState();
 
     useEffect(() => {
         const abort = new AbortController();
@@ -13,17 +14,23 @@ const CardList = ({deckId}) => {
         listCards(deckId, abort.signal).then(setCards).catch(setError);
 
         return ()=> abort.abort();
-    }, []);
+    }, [deckId]);
 
-    /*if(error){
+    if(error){
         return <ErrorMessage error={error} />;
-    }*/
+    }
 
-    const list = cards.map((card)=> <Card card={card} />);
+    const list = cards.map((card)=> {
+        return(
+            <li key={card.id}>
+                <Card card={card} />
+            </li>
+        );
+    });
 
     return(
         <div>
-            <section>{list}</section>
+            <ul style={{listStyleType: "none"}}>{list}</ul>
         </div>
     );
 

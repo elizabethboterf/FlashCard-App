@@ -13,23 +13,18 @@ function Deck({deck}){
         }
     };
 
-    const key=deck.id.toString();
-    
-
     return (
-        <div className="border">
-            <li key={`${key}`}>
-                <h3>{deck.name}</h3>
-                <p>{cardNum} cards</p>
-                <p>{deck.description}</p>
-                <Link to={`decks/${deck.id}`} className="btn btn-primary">View</Link>
+        <div style={{margin: "10px", padding: "8px"}} className="container">
+            <h3>{deck.name}</h3>
+            <p>{cardNum} cards</p>
+            <p>{deck.description}</p>
+            <Link to={`decks/${deck.id}`} className="btn btn-primary">View</Link>
 
-                <Link to={`decks/${deck.id}/study`} className="btn btn-primary">Study</Link>
-                
-                <Link to={`decks/${deck.id}/edit`} className="btn btn-primary">Edit</Link>
+            <Link to={`decks/${deck.id}/study`} className="btn btn-primary">Study</Link>
 
-                <button type="button" className="btn btn-danger" onClick={handleDelete}><span className="oi oi-trash"></span>Delete</button>
-            </li>
+            <Link to={`decks/${deck.id}/edit`} className="btn btn-primary">Edit</Link>
+
+            <button type="button" className="btn btn-danger" onClick={handleDelete}><span className="oi oi-trash"></span>Delete</button>
         </div>
     );
 }

@@ -5,7 +5,7 @@ function CardForm ({card, handleChange, handleSubmit, handleCancel}) {
         <form onSubmit={handleSubmit}>
             <div className="mb-3">
                 <label className="form-label"
-                style={{display: "inline-block"}} HTMLfor="front">Front</label>
+                style={{display: "inline-block"}} htmlFor="front">Front</label>
                 <textarea 
                     className="form-control"
                     id="front"
@@ -16,7 +16,7 @@ function CardForm ({card, handleChange, handleSubmit, handleCancel}) {
             </div>
             <div className="mb-3">
                 <label className="form-label" 
-                style={{display: "inline-block"}}HTMLfor="back">Back</label>
+                style={{display: "inline-block"}}htmlFor="back">Back</label>
                 <textarea 
                     className="form-control"
                     id="back"

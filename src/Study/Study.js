@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
-import {useParams, Link} from "react-router-dom";
-
+import {useParams} from "react-router-dom";
+import ErrorMessage from "../Common/ErrorMessage";
 import NotEnoughCards from "./NotEnoughCards";
 import FlashCard from "./FlashCard";
 import NavBar from "../Common/NavBar";
@@ -16,8 +16,7 @@ function Study(){
     const [deck, setDeck]= useState({});
     const [cards, setCards] = useState([]);
     const [displayCard, setDisplayCard]= useState(initialDisplay);
-
-    const [error, setError] = useState({});
+    const [error, setError] = useState();
 
     useEffect(()=>{
         const abort = new AbortController();
@@ -32,14 +31,26 @@ function Study(){
         listCards(deckId, abort.signal).then(setCards).catch(setError);
 
         return ()=> abort.abort();
-    }, []);
-    console.log(cards);
-    const length =cards.length-1;
+    }, [deckId]);
+
     
+    if (error){
+        return <ErrorMessage error={error} />;  
+    }
+    
+    const length =cards.length-1;
+    const navLinks= [
+        {dir: `/`,
+        label: "Home"},
+        {dir: `/decks/${deckId}`,
+        label: `${deck.name}`},
+        {dir: `decks/${deckId}/study`,
+        label: "Study"}
+    ];
 
     return (
         <div>
-            <NavBar />
+            <NavBar links={navLinks} />
             <h1>{deck.name}: Study</h1>
             {length<2 ? 
             (<NotEnoughCards deck={deck} cards={cards} />)

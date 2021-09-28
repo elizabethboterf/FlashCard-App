@@ -28,16 +28,18 @@ const Card = ({card}) =>{
     };
 
     return (
-        <article>
-            <div className="col-4">
-                {card.front}
-            </div>
-            <div className="col-4">
-                {card.back}
+        <div className="container" style={{margin: "10px", padding: "8px"}}>
+            <div className="row" >
+                <div className="col">
+                    Front: {card.front}
+                </div>
+                <div className="col">
+                    Back: {card.back}
+                </div>
             </div>
             <Link to={`${url}/cards/${card.id}/edit`} className="btn btn-primary">Edit</Link>
-            <button type="button" onClick={handleDelete} className="btn btn-danger"><span className="oi oi-trash">Delete</span></button>
-        </article>
+            <button type="button" onClick={handleDelete} className="btn btn-danger"><span className="oi oi-trash"></span>Delete</button>
+        </div>
     );
 }
 
