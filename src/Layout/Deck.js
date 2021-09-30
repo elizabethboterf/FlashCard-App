@@ -2,12 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { deleteDeck } from "../utils/api";
 
-function Deck({deck}){
+function Deck({deck, refresh, setRefresh}){
     const cardNum= deck.cards.length;
 
     const handleDelete = (event)=>{
         if(window.confirm("Are you sure you want to delete this deck?")){
             deleteDeck(deck.id);
+            setRefresh(!refresh);
         }
     };
 

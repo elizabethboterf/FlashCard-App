@@ -14,11 +14,6 @@
       "name": "never get your hopes up",
       "description": "but please god, please",
       "id": 27
-    },
-    {
-      "name": "hi",
-      "description": "yay",
-      "id": 28
     }
   ],
   "cards": [
@@ -57,18 +52,6 @@
       "back": "let's see",
       "deckId": 27,
       "id": 6
-    },
-    {
-      "front": "all right",
-      "deckId": 28,
-      "id": 7,
-      "back": "then"
-    },
-    {
-      "front": "try ",
-      "back": "this",
-      "deckId": 28,
-      "id": 8
     }
   ]
 }

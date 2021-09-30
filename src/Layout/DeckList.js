@@ -7,6 +7,7 @@ import {listDecks} from "../utils/api";
 function DeckList(){
     
     const [decks, setDecks]= useState([]);
+    const [refresh, setRefresh]= useState(false);
     const [error, setError]= useState();
 
     useEffect (()=>{
@@ -17,7 +18,7 @@ function DeckList(){
         .catch(setError);
 
         return ()=> abort.abort;
-    }, [decks]);
+    }, [refresh]);
 
     if (error){
         return <ErrorMessage error={error} />;  
@@ -26,7 +27,7 @@ function DeckList(){
     const list= decks.map((deck)=>{
         return(
             <li key={deck.id} >
-              <Deck deck={deck} />  
+              <Deck deck={deck} refresh={refresh} setRefresh={setRefresh}/>  
             </li>
         );
     });
