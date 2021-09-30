@@ -6,7 +6,7 @@ import NavBar from "../Common/NavBar";
 import DeckForm from "../Common/DeckForm";
 
 function CreateDeck() {
-    const [deck, setDeck] = useState({});
+    const [deck, setDeck] = useState({name:"", description:""});
     const [error, setError]= useState();
     const history = useHistory();
 
@@ -20,8 +20,6 @@ function CreateDeck() {
         event.preventDefault();
          async function createNewDeck (){
              const newDeck= await createDeck(deck);
-             console.log(newDeck);
-             
              return newDeck;
          } 
         createNewDeck().then(response=>history.push(`/decks/${response.id}`)).catch(setError);
@@ -49,7 +47,7 @@ function CreateDeck() {
             <NavBar links={navLinks}/>
             <h1>Create Deck</h1>
             <DeckForm
-            deck={{name:"Deck Name", description:"Deck Description"}}
+            deck={deck}
             handleCancel={handleCancel}
             handleSubmit={handleSubmit}
             handleChange={handleChange}

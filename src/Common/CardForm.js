@@ -11,8 +11,9 @@ function CardForm ({card, handleChange, handleSubmit, handleCancel}) {
                     id="front"
                     rows="5"
                     name="front"
+                    placeholder={"front of card"}
                     onChange={handleChange}
-                    defaultValue={card.front} />
+                    value={card.front} />
             </div>
             <div className="mb-3">
                 <label className="form-label" 
@@ -23,7 +24,8 @@ function CardForm ({card, handleChange, handleSubmit, handleCancel}) {
                     rows="5"
                     name="back"
                     onChange={handleChange}
-                    defaultValue={card.back} />
+                    placeholder={"back of card"}
+                    value={card.back} />
             </div>
             <button onClick={handleCancel} className="btn btn-secondary">Cancel</button>
             <button type="submit" className="btn btn-primary">Submit</button>

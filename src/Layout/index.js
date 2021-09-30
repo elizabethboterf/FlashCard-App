@@ -36,7 +36,7 @@ function Layout() {
           <Route path="/decks/:deckId/edit">
             <EditDeck />
           </Route>
-          <Route path="/decks/:deckId" >
+          <Route exact path="/decks/:deckId" >
             <ViewDeck />
           </Route>
           <NotFound />

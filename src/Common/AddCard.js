@@ -9,7 +9,7 @@ function AddCard () {
     const history=useHistory();
     const {deckId} = useParams();
     const [deck, setDeck]= useState({});
-    const [card, setCard]= useState({});
+    const [card, setCard]= useState({front:"", back:""});
     const [error, setError]= useState();
 
     useEffect(()=>{
@@ -55,8 +55,8 @@ function AddCard () {
             <NavBar links={navLinks} />
             <h1>Add Card</h1>
             <div className="container">
-                <CardForm  
-                card={{front:"Front of Card", back:"Back of Card"}}
+                <CardForm
+                card={card}  
                 handleChange={handleChange} handleSubmit={handleSubmit} handleCancel={handleCancel}/> 
         </div>
         </main>

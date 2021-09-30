@@ -2,21 +2,45 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
 import { deleteDeck, readDeck } from "../utils/api";
  import ErrorMessage from "../Common/ErrorMessage";
-import CardList from "./CardsList";
+import Card from "./Card";
 import NavBar from "../Common/NavBar";
 
 function ViewDeck (){
     const {deckId}=useParams();
+    console.log(deckId);
     const history=useHistory();
     const [deck, setDeck]= useState({});
+    const [cardList, setCardList] =useState([]);
+    const [refresh, setRefresh] = useState(false);
     const [error, setError] = useState();
+
+    function makeList(deck){
+        setDeck(deck);
+        const list = deck.cards.map((card)=> {
+            return(
+                <li style={{margin: "10px", padding: "8px"}} key={`card${card.id}`}>
+                    <Card card={card} refresh={refresh} setRefresh={setRefresh} />
+                </li>
+            );
+        });
+        setCardList(list);
+    }
 
     useEffect(()=>{
         const abort = new AbortController();
-        readDeck(deckId, abort.signal).then(setDeck).catch(setError);
+        readDeck(deckId, abort.signal).then((deck)=>makeList(deck)).catch(setError);
 
         return ()=> abort.abort();
-    }, [deckId]);
+    }, [deckId, refresh]);
+    console.log(deck);
+    /*const list = deck.cards.map((card)=> {
+        return(
+            <li style={{margin: "10px", padding: "8px"}} key={`card${card.id}`}>
+                <Card card={card} />
+            </li>
+        );
+    });*/
+    
 
     const handleDelete = ()=>{
         if(window.confirm("Are you sure you want to delete this deck?")){
@@ -50,7 +74,9 @@ function ViewDeck (){
                 <div>
                     <h1>Cards</h1>
                     <div className="column">
-                        <CardList deckId={deckId}/>
+                        <ul style={{listStyleType: "none"}}>
+                            {cardList}
+                        </ul>
                     </div>
                 </div>
             </div>

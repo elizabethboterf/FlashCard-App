@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, Fragment} from "react";
 import {useParams} from "react-router-dom";
 import ErrorMessage from "../Common/ErrorMessage";
 import NotEnoughCards from "./NotEnoughCards";
@@ -13,32 +13,42 @@ function Study(){
     };
 
     const {deckId} =useParams();
-    const [deck, setDeck]= useState({});
+    const [deck, setDeck]= useState({name: 'loading', cards:[]});
     const [cards, setCards] = useState([]);
     const [displayCard, setDisplayCard]= useState(initialDisplay);
     const [error, setError] = useState();
 
+    // /*function makeStates(deck){
+    //     setDeck(deck);
+    //     setCards(deck.cards);
+    //     };
+        
     useEffect(()=>{
         const abort = new AbortController();
-        readDeck(deckId, abort.signal).then(setDeck).catch(setError);
+        readDeck(deckId, abort.signal)
+            .then((deck)=>{
+                console.log(";;",deck);
+                setDeck(deck);
+            })
+            .catch(setError);
 
         return ()=> abort.abort();
     }, [deckId]);
 
-    useEffect(() => {
-        const abort = new AbortController();
+    // useEffect(() => {
+    //     const abort = new AbortController();
 
-        listCards(deckId, abort.signal).then(setCards).catch(setError);
+    //     listCards(deckId, abort.signal).then(setCards).catch(setError);
 
-        return ()=> abort.abort();
-    }, [deckId]);
+    //     return ()=> abort.abort();
+    // }, [deckId]);
 
     
     if (error){
         return <ErrorMessage error={error} />;  
     }
     
-    const length =cards.length-1;
+    //const length = deck ? deck.cards.length-1 : 0;
     const navLinks= [
         {dir: `/`,
         label: "Home"},
@@ -48,20 +58,21 @@ function Study(){
         label: "Study"}
     ];
 
-    return (
-        <div>
-            <NavBar links={navLinks} />
-            <h1>{deck.name}: Study</h1>
-            {length<2 ? 
-            (<NotEnoughCards deck={deck} cards={cards} />)
-            :
-            (<FlashCard 
-            cards={cards}
-            displayCard={displayCard} 
-            setDisplayCard={setDisplayCard}  
-            initialDisplay={initialDisplay} />)}
-        </div>
-    );
+        return (
+            <Fragment>
+                <NavBar links={navLinks} />
+                <h1>{deck.name}: Study</h1>
+                {deck.cards.length<3 ?
+                (<NotEnoughCards deck={deck}  />)
+                :
+                (<FlashCard 
+                cards={deck.cards}
+                displayCard={displayCard} 
+                setDisplayCard={setDisplayCard}  
+                initialDisplay={initialDisplay} />)}
+            </Fragment>
+        );
+    
 }
 
 export default Study;

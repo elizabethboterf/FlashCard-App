@@ -19,8 +19,8 @@ import React from "react";
                 id="name"
                 name="name"
                 onChange={handleChange}
-                //placeholder={deckName}
-                defaultValue={deck.name}
+                placeholder={"deck name"}
+                value={deck.name}
                 ></input>
             </div>
             <div className="mb-3">
@@ -33,8 +33,8 @@ import React from "react";
                 id="description"
                 name="description"
                 onChange={handleChange}
-                //placeholder={deckDescription}
-                defaultValue={deck.description}
+                placeholder={"deck description"}
+                value={deck.description}
                 ></textarea>
             </div>
             <button

@@ -4,25 +4,27 @@ import Card from "./Card";
 import {listCards} from "../utils/api";
 
 
-const CardList = ({deckId}) => {
-    const [cards, setCards]= useState([]);
+const CardList = ({deckId, deck}) => {
+    //const cards =deck.cards;
+    //console.log(cards);
+    /*const [realCards, setRealCards]= useState([]);
     const [error, setError] = useState();
 
     useEffect(() => {
         const abort = new AbortController();
 
-        listCards(deckId, abort.signal).then(setCards).catch(setError);
+        listCards(deckId, abort.signal).then(setRealCards).catch(setError);
 
         return ()=> abort.abort();
-    }, [deckId]);
+    }, [deckId, cards]);
 
     if(error){
         return <ErrorMessage error={error} />;
-    }
+    }*/
 
-    const list = cards.map((card)=> {
+    const list = deck.cards.map((card)=> {
         return(
-            <li key={card.id}>
+            <li key={`card${card.id}`}>
                 <Card card={card} />
             </li>
         );

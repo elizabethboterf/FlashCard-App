@@ -17,7 +17,7 @@ function DeckList(){
         .catch(setError);
 
         return ()=> abort.abort;
-    }, []);
+    }, [decks]);
 
     if (error){
         return <ErrorMessage error={error} />;  
@@ -34,7 +34,7 @@ function DeckList(){
     return (
         <main>
             <Link to="/decks/new" className="btn btn-primary">+ Create Deck</Link>
-            <ul style={{listStyleType: "none"}}>
+            <ul className="list-group mt-2 deck-list" style={{listStyleType: "none"}}>
                 {list}
             </ul>
         </main>

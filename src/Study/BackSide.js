@@ -4,12 +4,9 @@ import FlashCard from "./FlashCard";
 
 function BackSide({cards, card, restart, displayCard, setDisplayCard}){
     const history=useHistory();
-    //const [isFinal, setIsFinal]= useState(false);
     const {front, current}= displayCard;
     const {final, initial}= restart;
     let next=current;
-    
-    //console.log(isFinal);
 
     const handleFlip = (event)=>{
         event.preventDefault();

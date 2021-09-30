@@ -1,5 +1,4 @@
 import React from "react";
-
 import FrontSide from "./FrontSide";
 
 function FlashCard({cards, displayCard, setDisplayCard, initialDisplay}){
