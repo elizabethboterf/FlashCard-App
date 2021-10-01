@@ -64,6 +64,9 @@ async function fetchJson(url, options, onCancel) {
   }
 }
 
+// CRUD -- API DATA
+// create, read, update, delete
+
 /**
  * Retrieves all existing decks.
  * @returns {Promise<[deck]>}
@@ -84,6 +87,8 @@ export async function listDecks(signal) {
  * @returns {Promise<deck>}
  *  a promise that resolves the saved deck, which will now have an `id` property.
  */
+
+// request.body.data
 export async function createDeck(deck, signal) {
   const url = `${API_BASE_URL}/decks`;
   const options = {
@@ -121,7 +126,7 @@ export async function readDeck(deckId, signal) {
 export async function updateDeck(updatedDeck, signal) {
   const url = `${API_BASE_URL}/decks/${updatedDeck.id}?_embed=cards`;
   const options = {
-    method: "PUT",
+    method: "PUT", // "PATCH"
     headers,
     body: JSON.stringify(stripCards(updatedDeck)),
     signal,
@@ -231,3 +236,5 @@ export async function deleteCard(cardId, signal) {
   const options = { method: "DELETE", signal };
   return await fetchJson(url, options);
 }
+
+

@@ -1,14 +1,15 @@
 import React from "react";
-import Header from "./Header";
+import { Redirect, Switch, Route } from "react-router-dom";
+import Home from "../Home";
+import Study from "../Deck/Study";
 import NotFound from "./NotFound";
-import CreateDeck from "./CreateDeck";
-import DeckList from "./DeckList";
-import EditCard from "../View-Deck/EditCard";
-import AddCard from "../Common/AddCard";
-import Study from "../Study/Study";
-import EditDeck from "../View-Deck/EditDeck";
-import ViewDeck from "../View-Deck/ViewDeck";
-import {Switch, Route} from "react-router-dom";
+import Header from "./Header";
+import DeckEdit from "../Deck/Edit";
+import DeckView from "../Deck/View";
+import CardEdit from "../Card/Edit";
+import CardCreate from "../Card/Create";
+import DeckCreate from "../Deck/Create";
+
 
 function Layout() {
   return (
@@ -16,36 +17,37 @@ function Layout() {
       <Header />
       <div className="container">
         {/* TODO: Implement the screen starting here */}
-        
         <Switch>
-          <Route exact path="/" >
-            <DeckList />
-          </Route>
           <Route path="/decks/new">
-            <CreateDeck />
-          </Route>
-          <Route path="/decks/:deckId/cards/:cardId/edit">
-            <EditCard />
-          </Route>
-          <Route path="/decks/:deckId/cards/new">
-            <AddCard />
+            <DeckCreate />
           </Route>
           <Route path="/decks/:deckId/study">
             <Study />
           </Route>
           <Route path="/decks/:deckId/edit">
-            <EditDeck />
+            <DeckEdit />
           </Route>
-          <Route exact path="/decks/:deckId" >
-            <ViewDeck />
+          <Route path="/decks/:deckId/cards/new">
+            <CardCreate />
           </Route>
-          <NotFound />
+          <Route path="/decks/:deckId/cards/:cardId/edit">
+            <CardEdit />
+          </Route>
+          <Route exact={true} path="/decks/:deckId" >
+            <DeckView />
+          </Route>
+          <Route exact={true} path="/decks"> 
+            <Redirect to="/" />
+          </Route>
+          <Route exact={true} path="/" >
+            <Home />
+          </Route>
+          <Route>
+            <NotFound />
+          </Route>
         </Switch>
-
-        
       </div>
     </>
   );
 }
-
 export default Layout;
