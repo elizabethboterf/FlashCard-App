@@ -16,7 +16,7 @@ function DeckCreate() {
     history.goBack();
   }
   return (
-    <>
+    <div>
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -31,7 +31,7 @@ function DeckCreate() {
       </nav>
       <h1>Create Deck</h1>
       <DeckForm onCancel={cancel} onSubmit={submitHandler} />
-    </>
+    </div>
   );
 }
 export default DeckCreate;

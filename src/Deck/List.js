@@ -52,12 +52,12 @@ function DeckList() {
   ));
 
   return (
-    <>
+    <div>
       <Link to="/decks/new" className="btn btn-secondary">
         <span className="oi oi-plus" /> Create Deck
       </Link>
       <ul className="list-group mt-2 deck-list">{list}</ul>
-    </>
+    </div>
   );
 }
 export default DeckList;

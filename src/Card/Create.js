@@ -20,7 +20,7 @@ function CardCreate() {
     history.push(`/decks/${deckId}`);
   }
   return (
-    <>
+    <div>
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -42,7 +42,7 @@ function CardCreate() {
         onSubmit={submitHandler}
         onDone={doneHandler}
       />
-    </>
+    </div>
   );
 }
 export default CardCreate;

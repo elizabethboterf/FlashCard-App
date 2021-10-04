@@ -35,7 +35,7 @@ function CardEdit({ title }) {
     <p>Loading...</p>
   );
   return (
-    <>
+    <div>
       <nav aria-label="breadcrumb">
         <ol className="breadcrumb">
           <li className="breadcrumb-item">
@@ -53,7 +53,7 @@ function CardEdit({ title }) {
       </nav>
       <h2>Edit Card</h2>
       {child}
-    </>
+    </div>
   );
 }
 export default CardEdit;

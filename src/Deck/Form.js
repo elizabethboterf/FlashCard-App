@@ -21,7 +21,7 @@ function DeckForm({
   }
 
   return (
-    <>
+    <div>
       <form onSubmit={submitHandler} className="deck-edit">
         <fieldset>
           <div className="form-group">
@@ -62,7 +62,7 @@ function DeckForm({
           </button>
         </fieldset>
       </form>
-    </>
+    </div>
   );
 }
 export default DeckForm;
