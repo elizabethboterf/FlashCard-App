@@ -25,7 +25,7 @@ On the view deck page, you can edit the deck's title and description. Additional
 
 -> Add or Edit Cards
 
-![add cards]((https://user-images.githubusercontent.com/85326605/141330999-e9c06fac-fd77-46b8-986c-7767a39cb463.jpeg)
+![add cards](https://user-images.githubusercontent.com/85326605/141330999-e9c06fac-fd77-46b8-986c-7767a39cb463.jpeg)
 
 -> Study Page
 
